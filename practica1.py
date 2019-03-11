@@ -10,8 +10,7 @@ def form():
 
     forms = """
     <form action = "/" method = POST> url:<br>
-        <input type ="text" name="url" placeholder="URL to short"><br>
-        
+        <input type ="text" name="url" placeholder="URL to short"><br>        
         <input type ="Submit" value = "Send">
     """
     return forms
@@ -56,7 +55,8 @@ class CMS(webapp.webApp):
             if resource == "":
                 code = "200 OK"
                 body = "<html>url<br>" + html_form + \
-                       "<table><tr><td>URL</td><td>short_url</td></tr><tr><td>" + self.list_url + "</td><td>" +\
+                       "<table><tr><td>URL</td><td>short_url</td></tr><tr><td>" +\
+                       self.list_url + "</td><td>" +\
                        self.sh_url + "</td></tr></table></html>"
 
             elif resource == "favicon.ico":
@@ -66,8 +66,10 @@ class CMS(webapp.webApp):
             else:
                 if int(resource) < self.num:
                     code = "307"
-                    body = "<html><body><h1>Redirect</h1><meta http-equiv = 'Refresh' content='0; url=" + \
-                           str(self.short_url[int(resource)]) + "'></body></html>"
+                    body = "<html><body><h1>Redirect</h1><meta " \
+                           "http-equiv = 'Refresh' content='0; url=" + \
+                           str(self.short_url[int(resource)]) +\
+                           "'></body></html>"
                 else:
                     code = "400 Not found"
                     body = "<html><body><h1>Error</h1></body></html>"
@@ -80,7 +82,8 @@ class CMS(webapp.webApp):
                 self.long_url[self.num] = url
                 self.long_url[url] = self.num
 
-                self.list_url = self.list_url + "<p>" + str(url) + "</p>"
+                self.list_url = self.list_url + "<p>" + \
+                                str(url) + "</p>"
 
                 self.short_url = self.short_url + "<p>http://localhost:1234/" + str(self.num) + "<p>"
                 self.num = self.num + 1
