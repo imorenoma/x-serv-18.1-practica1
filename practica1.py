@@ -84,7 +84,9 @@ class CMS(webapp.webApp):
 
                 self.list_url = self.list_url + "<p>" + str(url) + "</p>"
 
-                self.short_url = self.short_url + "<p>" + "http://localhost:1234/" + str(self.num) + "<p>"
+                self.short_url = self.short_url + \
+                                 "<p>" + "http://localhost:1234/" + \
+                                 str(self.num) + "<p>"
                 self.num = self.num + 1
 
             with open('listurl', 'a', newline='') as myfile:
@@ -92,11 +94,12 @@ class CMS(webapp.webApp):
                 file_url.withdrow(self.num, url)
 
             code = "200 OK"
-            body = '<html><body>' + "<p><h4>url_origin<a href= " + url + ">" + str(url) + \
-                   "</a></h4></p><p><h4>url_short<a href=" + "http://localhost:1234/" + \
-                   str(self.num - 1) + ">" + str("http://localhost:1234/" + str(self.num - 1)) + \
-                   "</a></h4></p>" + "<p><a href='http://localhost:1234/'>Formulario</a>" + \
-                   "</p></body></html>"
+            body = '<html><body>' + "<p><h4>url_origin<a href= " + url + ">" +\
+                   str(url) + "</a></h4></p><p><h4>url_short<a href=" +\
+                   "http://localhost:1234/" + str(self.num - 1) + ">" +\
+                   str("http://localhost:1234/" + str(self.num - 1)) + \
+                   "</a></h4></p>" + "<p><a href='http://localhost:1234/'>" \
+                   "Formulario </a>" + "</p></body></html>"
 
         return(code, body)
 
