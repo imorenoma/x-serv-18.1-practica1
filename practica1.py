@@ -4,8 +4,6 @@ import webapp
 import csv
 
 
-
-
 def form():
 
     forms = """
@@ -84,7 +82,9 @@ class CMS(webapp.webApp):
 
                 self.list_url = self.list_url + "<p>" + str(url) + "</p>"
 
-                self.short_url = self.short_url + "<p>" + "http://localhost:1234/" + str(self.num) + "<p>"
+                self.short_url = self.short_url + "<p>"
+                self.short_url += "http://localhost:1234/" + str(self.num) + "<p>"
+
                 self.num = self.num + 1
 
             with open('listurl', 'a', newline='') as myfile:
