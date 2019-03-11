@@ -3,7 +3,7 @@
 import webapp
 import csv
 
-PORT = 1234
+
 
 
 def form():
@@ -84,8 +84,7 @@ class CMS(webapp.webApp):
 
                 self.list_url = self.list_url + "<p>" + str(url) + "</p>"
 
-                self.short_url = self.short_url + "<p>" + "http://localhost:" \
-                                                          "1234/" + str(self.num) + "<p>"
+                self.short_url = self.short_url + "<p>" + "http://localhost:1234/" + str(self.num) + "<p>"
                 self.num = self.num + 1
 
             with open('listurl', 'a', newline='') as myfile:
@@ -105,11 +104,11 @@ class CMS(webapp.webApp):
     def __init__(self, hostname, port):
         file = open('listurl.csv', 'a')
         file.close()
-        super.__init__(hostname, port)
+        super().__init__(hostname, port)
 
 
 if __name__ == '__main__':
     try:
-        testWebApp = CMS("localhost", PORT)
+        testWebApp = CMS("localhost", 1234)
     except KeyboardInterrupt:
         print("closing binded socket")
