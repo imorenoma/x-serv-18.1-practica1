@@ -71,6 +71,19 @@ class CMS(webapp.webApp):
                     code = "400 Not found"
                     body = "<html><body><h1>Error</h1></body></html>"
 
+        if method == "POST":
+            if url == "":
+                code = "400 Not Found"
+                body = "<html><body><h1>Error</h1></body></html>"
+            if url not in self.long_url.keys():
+                self.long_url[self.num] = url
+                self.long_url[url] = self.num
+
+                self.list_url = self.list_url + "<p>" + str(url) + "</p>"
+
+                self.short_url = self.short_url + "<p>http://localhost:1234/" + str(self.num) + "<p>"
+                self.num = self.num + 1
+
 
 if __name__ == '__main__':
     try:
