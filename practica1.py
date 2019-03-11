@@ -10,7 +10,7 @@ def form():
 
     forms = """
     <form action = "/" method = POST> url:<br>
-        <input type ="text" name="url" placeholder="URL to short"><br>        
+        <input type ="text" name="url" placeholder="URL to short"><br>
         <input type ="Submit" value = "Send">
     """
     return forms
@@ -55,8 +55,8 @@ class CMS(webapp.webApp):
             if resource == "":
                 code = "200 OK"
                 body = "<html>url<br>" + html_form + \
-                       "<table><tr><td>URL</td><td>short_url</td></tr><tr><td>" +\
-                       self.list_url + "</td><td>" +\
+                       "<table><tr><td>URL</td><td>short_url</td></tr>" \
+                       "<tr><td>" + self.list_url + "</td><td>" +\
                        self.sh_url + "</td></tr></table></html>"
 
             elif resource == "favicon.ico":
@@ -82,8 +82,7 @@ class CMS(webapp.webApp):
                 self.long_url[self.num] = url
                 self.long_url[url] = self.num
 
-                self.list_url = self.list_url + "<p>" + \
-                                str(url) + "</p>"
+                self.list_url = self.list_url + "<p>" + str(url) + "</p>"
 
                 self.short_url = self.short_url + "<p>http://localhost:1234/" + str(self.num) + "<p>"
                 self.num = self.num + 1
@@ -94,16 +93,16 @@ class CMS(webapp.webApp):
 
             code = "200 OK"
             body = '<html><body>' + "<p><h4>url_origin<a href= " + url + ">" + str(url) + \
-                   "</a></h4></p><p><h4>url_short<a href=" + "http://localhost:1234/" + str(self.num - 1) + ">" + \
-                   str("http://localhost:1234/" + str(self.num - 1)) + "</a></h4></p>" + \
-                   "<p><a href='http://localhost:1234/'> Formulario</a></p></body></html>"
+                   "</a></h4></p><p><h4>url_short<a href=" + "http://localhost:1234/" +\
+                   str(self.num - 1) + ">" + str("http://localhost:1234/" + str(self.num - 1)) +\
+                   "</a></h4></p>" + "<p><a href='http://localhost:1234/'> Formulario</a></p></body></html>"
 
         return(code, body)
 
     def __init__(self, hostname, port):
         file = open('listurl.csv', 'a')
         file.close()
-        super.__init__(hostname,port)
+        super.__init__(hostname, port)
 
 
 if __name__ == '__main__':
