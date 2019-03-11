@@ -65,7 +65,7 @@ print("La salida de pep8 es: (si todo va bien, no ha de mostrar nada)")
 print()
 for filename in student_files:
     if filename in github_file_list:
-        os.system('pep8 --repeat --show-source --statistics /tmp/'
+        os.system('pycodestyle --repeat --show-source --statistics /tmp/'
                   + aleatorio + '/' + filename)
     else:
         print("Fichero " + filename + " no encontrado en el repositorio.")
