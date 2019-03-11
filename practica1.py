@@ -32,7 +32,8 @@ class CMS(webapp.webApp):
             if len(body.split("%3A%2F%2F")) == 1:
                 url = "http://" + body.split('%', 1)[0]
             else:
-                url = "http://" + body.split("%3A%2F%2F", 1)[1].split('%', 1)[0]
+                url = "http://"
+                url += body.split("%3A%2F%2F", 1)[1].split('%', 1)[0]
         else:
 
             body = ""
