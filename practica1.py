@@ -21,7 +21,8 @@ class CMS(webapp.webApp):
     long_url = {}
     short_url = {}
     list_url = ""
-    s_url = ""
+    sh_url = ""
+    num = 0
 
     def parse(self, request):
 
@@ -58,7 +59,17 @@ class CMS(webapp.webApp):
                        self.sh_url + "</td></tr></table></html>"
 
             elif resource == "favicon.ico":
+                code = "404"
+                body = "<html><body>favicon.ico</body></html>"
 
+            else:
+                if int(resource) < self.num:
+                    code = "307"
+                    body = "<html><body><h1>Redirect</h1><meta http-equiv = 'Refresh' content='0; url=" + \
+                           str(self.short_url[int(resource)]) + "'></body></html>"
+                else:
+                    code = "400 Not found"
+                    body = "<html><body><h1>Error</h1></body></html>"
 
 
 if __name__ == '__main__':
