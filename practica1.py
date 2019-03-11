@@ -84,7 +84,7 @@ class CMS(webapp.webApp):
 
                 self.short_url = self.short_url + "<p>"
                 self.short_url += "http://localhost:1234/" + str(self.num)
-                self.short_url +=  "<p>"
+                self.short_url += "<p>"
 
                 self.num = self.num + 1
 
