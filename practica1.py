@@ -24,15 +24,15 @@ class CMS(webapp.webApp):
 
     def parse(self, request):
 
-        method, resource, _ = request.split(' ', 2)
+        method = request.split()[0]
+        resource = request.split()[1][1:]
 
         if method == "POST":
             body = request.split('\r\n\r\n')[1].split('=')[1]
             if len(body.split("%3A%2F%2F")) == 1:
-                url = "http://" + body.split('%', 1)[1]
+                url = "http://" + body.split('%', 1)[0]
             else:
-                url = "https://" + body.split("%3A%2F%2F", 1).split('%', 1)[0]
-
+                url = "http://" + body.split("%3A%2F%2F", 1)[1].split('%', 1)[0]
         else:
 
             body = ""
@@ -40,9 +40,7 @@ class CMS(webapp.webApp):
 
         print(url)
 
-        return(method,
-               resource,
-               url)
+        return method, resource, url
 
     def process(self, parse_request):
 
@@ -77,20 +75,20 @@ class CMS(webapp.webApp):
                 code = "400 Not Found"
                 body = "<html><body><h1>Error</h1></body></html>"
             if url not in self.long_url.keys():
+
                 self.long_url[self.num] = url
                 self.long_url[url] = self.num
 
                 self.list_url = self.list_url + "<p>" + str(url) + "</p>"
 
-                self.short_url = self.short_url + "<p>"
-                self.short_url += "http://localhost:1234/" + str(self.num)
-                self.short_url += "<p>"
+                self.sh_url = self.sh_url + "<p>http://localhost:1234/"
+                self.sh_url += str(self.num) + "</p>"
 
                 self.num = self.num + 1
 
             with open('listurl', 'a', newline='') as myfile:
                 file_url = csv.writer(myfile)
-                file_url.withdrow(self.num, url)
+                file_url.writerow([self.num, url])
 
             code = "200 OK"
             body = '<html><body>' + "<p><h4>url_origin<a href= " + url + ">" +\
@@ -100,7 +98,7 @@ class CMS(webapp.webApp):
                    "</a></h4></p>" + "<p><a href='http://localhost:1234/'>" \
                    "Formulario </a>" + "</p></body></html>"
 
-        return(code, body)
+        return code, body
 
     def __init__(self, hostname, port):
         file = open('listurl.csv', 'a')
@@ -109,7 +107,5 @@ class CMS(webapp.webApp):
 
 
 if __name__ == '__main__':
-    try:
-        testWebApp = CMS("localhost", 1234)
-    except KeyboardInterrupt:
-        print("closing binded socket")
+    testWebApp = CMS("localhost", 1234)
+
