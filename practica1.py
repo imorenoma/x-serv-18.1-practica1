@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import webapp
+import csv
 
 PORT = 1234
 
@@ -37,7 +38,7 @@ class CMS(webapp.webApp):
 
         else:
 
-            body = " "
+            body = ""
             url = body
 
         print(url)
@@ -83,6 +84,23 @@ class CMS(webapp.webApp):
 
                 self.short_url = self.short_url + "<p>http://localhost:1234/" + str(self.num) + "<p>"
                 self.num = self.num + 1
+
+            with open('listurl', 'a', newline='') as myfile:
+                file_url = csv.writer(myfile)
+                file_url.withdrow(self.num, url)
+
+            code = "200 OK"
+            body = '<html><body>' + "<p><h4>url_origin<a href= " + url + ">" + str(url) + \
+                   "</a></h4></p><p><h4>url_short<a href=" + "http://localhost:1234/" + str(self.num - 1) + ">" + \
+                   str("http://localhost:1234/" + str(self.num - 1)) + "</a></h4></p>" + \
+                   "<p><a href='http://localhost:1234/'> Formulario</a></p></body></html>"
+
+        return(code, body)
+
+    def __init__(self, hostname, port):
+        file = open('listurl.csv', 'a')
+        file.close()
+        super.__init__(hostname,port)
 
 
 if __name__ == '__main__':
